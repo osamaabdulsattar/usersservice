@@ -55,6 +55,9 @@ public class UserServiceImpl implements UserService {
         User foundUser = userRepository.findById(id)
                 .orElseThrow(() -> new ItemNotExistException(
                         String.format("User with id %s not exist", id)));
+
+        // TODO: 2021-08-17 14:47:00 check if email is unique among all users
+
         foundUser.setEmail(user.getEmail());
         foundUser.setTitle(user.getTitle());
         foundUser.setFirstname(user.getFirstname());
