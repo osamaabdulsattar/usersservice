@@ -10,8 +10,6 @@ public interface UserService {
 
     UserResource registerNewUser(User user);
 
-    UserResource updateUser(User user, Long id);
-
     Object findById(Long id);
 
     List<UserResource> getAll();
