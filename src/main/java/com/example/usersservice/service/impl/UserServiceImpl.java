@@ -30,6 +30,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserResource updateUser(User user, Long id) {
+
+        return userRepository.save(user).toUserResource();
+    }
+
+    @Override
     public UserResource findById(Long userId) throws ItemNotExistException {
         Optional<User> foundUser = userRepository.findById(userId);
         if (foundUser.isEmpty()) {
