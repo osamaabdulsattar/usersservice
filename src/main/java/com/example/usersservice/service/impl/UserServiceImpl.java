@@ -49,6 +49,20 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public UserResource updateUser(User user, Long id) {
+        User foundUser = userRepository.findById(id)
+                .orElseThrow(() -> new ItemNotExistException(
+                        String.format("User with id %s not exist", id)));
+        foundUser.setEmail(user.getEmail());
+        foundUser.setTitle(user.getTitle());
+        foundUser.setFirstname(user.getFirstname());
+        foundUser.setLastname(user.getLastname());
+        foundUser.setPhone(user.getPhone());
+
+        return userRepository.save(foundUser).toUserResource();
+    }
+
     /**
      * When adding, submitted username should be unique among all users.
      *
