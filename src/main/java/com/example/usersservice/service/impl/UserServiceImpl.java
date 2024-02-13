@@ -10,7 +10,9 @@ import com.example.usersservice.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service(value = "userService")
@@ -30,8 +32,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResource updateUser(User user, Long id) {
+        User foundUser = userRepository.findById(id)
+                .orElseThrow(() -> new ItemNotExistException(
+                        String.format("User with id %s not exist", id)));
+        foundUser.setEmail(user.getEmail());
+        foundUser.setTitle(user.getTitle());
+        foundUser.setFirstname(user.getFirstname());
+        foundUser.setLastname(user.getLastname());
+        foundUser.setPhone(user.getPhone());
 
-        return userRepository.save(user).toUserResource();
+        return userRepository.save(foundUser).toUserResource();
     }
 
     @Override
@@ -42,6 +52,14 @@ public class UserServiceImpl implements UserService {
         }
 
         return foundUser.get().toUserResource();
+    }
+
+    @Override
+    public List<UserResource> getAll() {
+        return userRepository.findAll()
+                .stream()
+                .map(User::toUserResource)
+                .collect(Collectors.toList());
     }
 
     /**

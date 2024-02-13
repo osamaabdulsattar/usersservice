@@ -20,6 +20,13 @@ public class UsersRestController {
         this.userService = userService;
     }
 
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAll()
+            throws ItemNotExistException {
+        return ResponseEntity.ok(userService.getAll());
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getOne(@PathVariable(value = "id") Long id)
             throws ItemNotExistException {
