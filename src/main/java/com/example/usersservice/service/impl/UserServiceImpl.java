@@ -26,7 +26,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResource registerNewUser(User user) {
-        checkEmailNotExist(user.getEmail());
 
         return userRepository.save(user).toUserResource();
     }
@@ -48,20 +47,6 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .map(User::toUserResource)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public UserResource updateUser(User user, Long id) {
-        User foundUser = userRepository.findById(id)
-                .orElseThrow(() -> new ItemNotExistException(
-                        String.format("User with id %s not exist", id)));
-        foundUser.setEmail(user.getEmail());
-        foundUser.setTitle(user.getTitle());
-        foundUser.setFirstname(user.getFirstname());
-        foundUser.setLastname(user.getLastname());
-        foundUser.setPhone(user.getPhone());
-
-        return userRepository.save(foundUser).toUserResource();
     }
 
     /**
