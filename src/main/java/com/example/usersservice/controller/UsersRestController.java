@@ -41,5 +41,11 @@ public class UsersRestController {
         );
     }
 
-
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateUser(@RequestBody User user, @PathVariable Long id)
+            throws ItemExistException {
+        return ResponseEntity.ok(
+                userService.updateUser(user, id)
+        );
+    }
 }
