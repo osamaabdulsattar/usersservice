@@ -14,5 +14,4 @@ public interface UserService {
 
     List<UserResource> getAll();
 
-    UserResource updateUser(User user, Long id);
 }
