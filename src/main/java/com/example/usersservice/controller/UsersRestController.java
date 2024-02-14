@@ -24,6 +24,7 @@ public class UsersRestController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<Object> getAll()
             throws ItemNotExistException {
+        // HOT FIX
         return ResponseEntity.ok(userService.getAll());
     }
 
