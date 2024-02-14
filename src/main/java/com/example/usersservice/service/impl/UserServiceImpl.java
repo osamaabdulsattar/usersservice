@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResource registerNewUser(User user) {
-
+        checkEmailNotExist(user.getEmail());
         return userRepository.save(user).toUserResource();
     }
 
